@@ -25,8 +25,8 @@ export default function Home() {
   const fetchPosts = async () => {
     try {
       const res = await fetch('/api/posts');
-      const data: Post[] = await res.json();
-      setPosts(data);
+      const data = await res.json();
+      setPosts(data.data);
     } catch (error) {
       console.error('Error fetching posts:', error);
     }
