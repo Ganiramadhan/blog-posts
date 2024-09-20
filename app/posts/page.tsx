@@ -2,7 +2,10 @@
 
 import { useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
-import { AiOutlineEdit, AiOutlineDelete, AiOutlinePlus } from 'react-icons/ai';
+import { AiOutlinePlus } from 'react-icons/ai';
+import PostCard from './PostCard';
+import PostModal from './PostModal';
+import Navbar from '@components/Navbar';
 
 interface Post {
   id: number;
@@ -110,32 +113,15 @@ export default function Home() {
     setIsModalOpen(true);
   };
 
-  const handleSubmit = () => {
-    if (modalMode === 'add') {
-      handleAddPost();
-    } else {
-      handleEditPost();
-    }
-  };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
-
   const handleKeyDown = (e: KeyboardEvent) => {
     if (e.key === 'Escape') {
-      closeModal();
-    }
-  };
-
-  const handleClickOutside = (e: React.MouseEvent) => {
-    const modal = document.getElementById('modal');
-    if (modal && !modal.contains(e.target as Node)) {
-      closeModal();
+      setIsModalOpen(false);
     }
   };
 
   return (
+    <>
+    <Navbar/>
     <div className="container mx-auto p-4">
       <h1 className="text-2xl font-bold mb-4">All Posts</h1>
       <button
@@ -148,24 +134,12 @@ export default function Home() {
       <div className="grid grid-cols-4 gap-4">
         {posts.length > 0 ? (
           posts.map((post) => (
-            <div key={post.id} className="border p-4 rounded-lg shadow-lg">
-              <h2 className="text-xl font-semibold mb-2">{post.title}</h2>
-              <p>{post.content}</p>
-              <div className="flex mt-4">
-                <button
-                  className="bg-yellow-500 text-white px-2 py-1 mr-2 flex items-center rounded-lg"
-                  onClick={() => openEditModal(post)}
-                >
-                  <AiOutlineEdit className="mr-1" /> Edit
-                </button>
-                <button
-                  className="bg-red-500 text-white px-2 py-1 flex items-center rounded-lg"
-                  onClick={() => handleDeletePost(post.id)}
-                >
-                  <AiOutlineDelete className="mr-1" /> Delete
-                </button>
-              </div>
-            </div>
+            <PostCard
+              key={post.id}
+              post={post}
+              onEdit={() => openEditModal(post)}
+              onDelete={() => handleDeletePost(post.id)}
+            />
           ))
         ) : (
           <p>No posts available.</p>
@@ -173,48 +147,15 @@ export default function Home() {
       </div>
 
       {isModalOpen && (
-        <div
-          className="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center"
-          onClick={handleClickOutside}
-        >
-          <div
-            id="modal"
-            className="bg-white p-4 rounded-lg"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <h2 className="text-xl mb-4">
-              {modalMode === 'add' ? 'Add Post' : 'Edit Post'}
-            </h2>
-            <input
-              type="text"
-              value={formData.title}
-              onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-              placeholder="Title"
-              className="border p-2 mb-2 w-full rounded-lg"
-            />
-            <textarea
-              value={formData.content}
-              onChange={(e) => setFormData({ ...formData, content: e.target.value })}
-              placeholder="Content"
-              className="border p-2 mb-2 w-full rounded-lg"
-            />
-            <div className="flex justify-end">
-              <button
-                className="bg-blue-500 text-white px-4 py-2 rounded-lg"
-                onClick={handleSubmit}
-              >
-                {modalMode === 'add' ? 'Add' : 'Update'}
-              </button>
-              <button
-                className="bg-gray-500 text-white px-4 py-2 ml-2 rounded-lg"
-                onClick={closeModal}
-              >
-                Cancel
-              </button>
-            </div>
-          </div>
-        </div>
+        <PostModal
+          formData={formData}
+          setFormData={setFormData}
+          mode={modalMode}
+          onSubmit={modalMode === 'add' ? handleAddPost : handleEditPost}
+          onClose={() => setIsModalOpen(false)}
+        />
       )}
     </div>
+    </>
   );
 }
