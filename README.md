@@ -18,8 +18,6 @@ To clone and run this project locally, follow these steps:
 
 Make sure you have [Node.js](https://nodejs.org/) and [npm](https://www.npmjs.com/) (or Yarn) installed on your machine.
 
-### Clone the Repository
-
 1. Open your terminal.
 2. Clone the repository using the following command:
    ```bash
@@ -37,14 +35,11 @@ Make sure you have [Node.js](https://nodejs.org/) and [npm](https://www.npmjs.co
    ```bash
    npx prisma migrate dev --name init
     ```
-6. Set Up Database:
+6. Run the Development Server:
    ```bash
    npm or yarn dev 
    ```
-7. Run the Development Server
-   ```bash
-   npx prisma migrate dev --name init
-    ```
+
 Your application should now be running at http://localhost:3000. Open this URL in your browser to see your project in action!
 
 
