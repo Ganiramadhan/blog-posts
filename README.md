@@ -40,7 +40,7 @@ Make sure you have [Node.js](https://nodejs.org/) and [npm](https://www.npmjs.co
    npm or yarn dev 
    ```
 
-Your application should now be running at http://localhost:3000. Open this URL in your browser to see your project in action!
+Your application should now be running at http://localhost:3000. Open this URL in your browser to see your project.
 
 
 
