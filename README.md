@@ -1,26 +1,25 @@
-# Blog Post Management System
+# Blog Posts
 
-## Project Overview
+This project is a simple blog application built with Next.js and Prisma. It allows you to display, add, edit, and delete blog posts.
 
-This project is a **Blog Post Management System** built using **Next.js** and **Prisma**. It allows users to create, read, update, and delete blog posts while also supporting image uploads. The application utilizes a modern tech stack to provide a seamless user experience and robust backend functionality.
+## Prerequisites
 
-## Features
+Before getting started, ensure you have the following installed on your system:
 
-- **CRUD Functionality**: Users can create, read, update, and delete blog posts.
-- **Image Uploads**: Supports image uploads for each blog post, allowing for richer content presentation.
-- **Responsive Design**: The interface is responsive and user-friendly, ensuring compatibility across various devices.
-- **SweetAlert Integration**: Provides user-friendly notifications for actions such as adding, editing, and deleting posts.
+- [Node.js](https://nodejs.org/) (version 14.x or higher)
+- [npm](https://www.npmjs.com/get-npm) or [Yarn](https://yarnpkg.com/) for package management
+- [PostgreSQL](https://www.postgresql.org/) or another supported database for Prisma (make sure your database is set up)
 
-## Tech Stack
+## Cloning the Repository
 
-- **Frontend**: Next.js, React, Tailwind CSS
-- **Backend**: Node.js, Prisma, Express
-- **Database**: SQLite (or any other supported database)
-- **File Handling**: Formidable for handling image uploads
-- **Notification**: SweetAlert2 for displaying success and error messages
+First, clone this repository to your local machine:
 
-## Installation
-
----
-
-
+```bash
+git clone https://github.com/Ganiramadhan/blog-posts.git
+cd blog-posts
+npm install # or yarn install
+cp .env.example .env
+# Update DATABASE_URL in .env with your database credentials
+npx prisma generate
+npx prisma migrate dev --name init
+npm run dev # or yarn dev
